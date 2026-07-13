@@ -54,3 +54,24 @@ def create_exercise():
         "name": new_exercise.name,
         "category": new_exercise.category.value
     }), 201
+
+
+@exercise_bp.route("", methods=["GET"])
+@jwt_required()
+def get_exercises():
+    user_id = get_jwt_identity()
+
+    exercises = Exercise.query.filter_by(
+        user_id=int(user_id)
+    ).order_by(Exercise.name).all()
+
+    result = [
+        {
+            "id": exercise.id,
+            "name": exercise.name,
+            "category": exercise.category.value
+        }
+        for exercise in exercises
+    ]
+
+    return jsonify(result), 200
