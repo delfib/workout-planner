@@ -56,34 +56,37 @@ def create_exercise():
     }), 201
 
 
+# optional parameters: ?category= and ?search=
 @exercise_bp.route("", methods=["GET"])
 @jwt_required()
 def get_exercises():
     user_id = get_jwt_identity()
 
     category = request.args.get("category")
+    search = request.args.get("search")
 
     query = Exercise.query.filter_by(
         user_id=int(user_id)
     )
 
     if category:
-        try:
-            category_enum = next(
-                (
-                    c for c in ExerciseCategory
-                    if c.value.lower() == category.lower()
-                ),
-                None
-            )
+        category_enum = next(
+            (
+                c for c in ExerciseCategory
+                if c.value.lower() == category.lower()
+            ),
+            None
+        )
 
-            if category_enum is None:
-                return jsonify({"error": "Invalid category"}), 400
-
-            query = query.filter_by(category=category_enum)
-
-        except ValueError:
+        if category_enum is None:
             return jsonify({"error": "Invalid category"}), 400
+
+        query = query.filter_by(category=category_enum)
+
+    if search:
+        query = query.filter(
+            Exercise.name.ilike(f"%{search}%")
+        )
 
     exercises = query.order_by(Exercise.name).all()
 
