@@ -61,9 +61,31 @@ def create_exercise():
 def get_exercises():
     user_id = get_jwt_identity()
 
-    exercises = Exercise.query.filter_by(
+    category = request.args.get("category")
+
+    query = Exercise.query.filter_by(
         user_id=int(user_id)
-    ).order_by(Exercise.name).all()
+    )
+
+    if category:
+        try:
+            category_enum = next(
+                (
+                    c for c in ExerciseCategory
+                    if c.value.lower() == category.lower()
+                ),
+                None
+            )
+
+            if category_enum is None:
+                return jsonify({"error": "Invalid category"}), 400
+
+            query = query.filter_by(category=category_enum)
+
+        except ValueError:
+            return jsonify({"error": "Invalid category"}), 400
+
+    exercises = query.order_by(Exercise.name).all()
 
     result = [
         {
