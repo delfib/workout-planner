@@ -75,3 +75,52 @@ def get_exercises():
     ]
 
     return jsonify(result), 200
+
+
+@exercise_bp.route("/<int:id>", methods=["PUT"])
+@jwt_required()
+def update_exercise(id):
+    user_id = get_jwt_identity()
+
+    data = request.get_json()
+
+    exercise = Exercise.query.filter_by(
+        id=id,
+        user_id=int(user_id)
+    ).first()
+
+    if not exercise:
+        return jsonify({"error": "Exercise not found"}), 404
+
+    name = data.get("name")
+    category = data.get("category")
+
+    if not name and not category:
+        return jsonify({"error": "No fields to update"}), 400
+
+    if name:
+        exercise.name = name.strip()
+
+    if category:
+        category = category.strip()
+
+        category_enum = next(
+            (
+                c for c in ExerciseCategory
+                if c.value.lower() == category.lower()
+            ),
+            None
+        )
+
+        if category_enum is None:
+            return jsonify({"error": "Invalid category"}), 400
+
+        exercise.category = category_enum
+
+    db.session.commit()
+
+    return jsonify({
+        "id": exercise.id,
+        "name": exercise.name,
+        "category": exercise.category.value
+    }), 200
