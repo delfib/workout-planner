@@ -117,7 +117,7 @@ def update_exercise(id):
     if not exercise:
         return jsonify({"error": "Exercise not found"}), 404
 
-    name = data.get("name")
+    name = data.get("name", "").strip()
     category = data.get("category")
 
     if not name and not category:
