@@ -124,3 +124,25 @@ def update_exercise(id):
         "name": exercise.name,
         "category": exercise.category.value
     }), 200
+
+
+
+@exercise_bp.route("/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_exercise(id):
+    user_id = get_jwt_identity()
+
+    exercise = Exercise.query.filter_by(
+        id=id,
+        user_id=int(user_id)
+    ).first()
+
+    if not exercise:
+        return jsonify({"error": "Exercise not found"}), 404
+
+    db.session.delete(exercise)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Exercise deleted successfully"
+    }), 200
