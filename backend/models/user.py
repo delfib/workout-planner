@@ -1,6 +1,5 @@
-from models import db
 from datetime import datetime
-
+from models import db
 class User(db.Model):
     __tablename__ = "users"
 
@@ -10,4 +9,10 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    exercises = db.relationship(
+        "Exercise",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
