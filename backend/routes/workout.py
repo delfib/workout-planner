@@ -61,3 +61,41 @@ def get_workouts():
     ]
 
     return jsonify(result), 200
+
+
+@workout_bp.route("/<int:id>", methods=["PUT"])
+@jwt_required()
+def update_workout(id):
+    user_id = get_jwt_identity()
+
+    data = request.get_json()
+    name = data.get("name", "").strip()
+
+    if not name:
+        return jsonify({"error": "Missing fields"}), 400
+
+    workout = Workout.query.filter_by(
+        id=id,
+        user_id=int(user_id)
+    ).first()
+
+    if not workout:
+        return jsonify({"error": "Workout not found"}), 404
+
+    existing_workout = Workout.query.filter(
+        Workout.user_id == int(user_id),
+        func.lower(Workout.name) == name.lower(),
+        Workout.id != id
+    ).first()
+
+    if existing_workout:
+        return jsonify({"error": "Workout already exists"}), 400
+
+    workout.name = name
+
+    db.session.commit()
+
+    return jsonify({
+        "id": workout.id,
+        "name": workout.name
+    }), 200
