@@ -40,3 +40,24 @@ def create_workout():
         "id": new_workout.id,
         "name": new_workout.name
     }), 201
+
+
+@workout_bp.route("", methods=["GET"])
+@jwt_required()
+def get_workouts():
+    user_id = get_jwt_identity()
+
+
+    workouts = Workout.query.filter_by(
+        user_id=int(user_id)
+    ).order_by(Workout.name).all()
+
+    result = [
+        {
+            "id": workout.id,
+            "name": workout.name,
+        }
+        for workout in workouts
+    ]
+
+    return jsonify(result), 200
