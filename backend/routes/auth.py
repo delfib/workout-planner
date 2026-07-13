@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from models import db
 from models.user import User
-from flask_bcrypt import check_password_hash
 from flask_jwt_extended import create_access_token
+from extensions import bcrypt
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -26,7 +26,6 @@ def register():
         return jsonify({"error": "Username already exists"}), 400
 
     # Hash password using app-level bcrypt
-    from app import bcrypt
     hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
 
     new_user = User(
@@ -55,8 +54,6 @@ def login():
 
     if not user:
         return jsonify({"error": "Invalid credentials"}), 401
-
-    from app import bcrypt
 
     if not bcrypt.check_password_hash(user.password_hash, password):
         return jsonify({"error": "Invalid credentials"}), 401
