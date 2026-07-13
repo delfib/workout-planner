@@ -99,3 +99,24 @@ def update_workout(id):
         "id": workout.id,
         "name": workout.name
     }), 200
+
+
+@workout_bp.route("/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_workout(id):
+    user_id = get_jwt_identity()
+
+    workout = Workout.query.filter_by(
+        id=id,
+        user_id=int(user_id)
+    ).first()
+
+    if not workout:
+        return jsonify({"error": "Workout not found"}), 404
+
+    db.session.delete(workout)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Workout deleted successfully"
+    }), 200
