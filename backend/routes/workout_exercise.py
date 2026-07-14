@@ -108,3 +108,80 @@ def get_workout_exercises(workout_id):
     ]
 
     return jsonify(result), 200
+
+
+@workout_exercise_bp.route("/workout-exercises/<int:id>", methods=["PUT"])
+@jwt_required()
+def update_workout_exercise(id):
+    user_id = get_jwt_identity()
+
+    data = request.get_json() or {}
+
+    exercise_id = data.get("exercise_id")
+    description = data.get("description")
+    position = data.get("position")
+
+    if exercise_id is None and description is None and position is None:
+        return jsonify({"error": "No fields to update"}), 400
+
+    workout_exercise = db.session.get(WorkoutExercise, id)
+
+    if not workout_exercise or workout_exercise.workout.user_id != int(user_id):
+        return jsonify({"error": "Workout exercise not found"}), 404
+
+    if exercise_id is not None:
+        exercise = Exercise.query.filter_by(
+            id=exercise_id,
+            user_id=int(user_id)
+        ).first()
+
+        if not exercise:
+            return jsonify({"error": "Exercise not found"}), 404
+
+        existing_exercise = WorkoutExercise.query.filter(
+            WorkoutExercise.workout_id == workout_exercise.workout_id,
+            WorkoutExercise.exercise_id == exercise_id,
+            WorkoutExercise.id != id
+        ).first()
+
+        if existing_exercise:
+            return jsonify({
+                "error": "Exercise already added to workout"
+            }), 400
+
+        workout_exercise.exercise_id = exercise_id
+
+    if description is not None:
+        description = description.strip()
+
+        if not description:
+            return jsonify({"error": "Description cannot be empty"}), 400
+
+        workout_exercise.description = description
+
+    if position is not None:
+        existing_position = WorkoutExercise.query.filter(
+            WorkoutExercise.workout_id == workout_exercise.workout_id,
+            WorkoutExercise.position == position,
+            WorkoutExercise.id != id
+        ).first()
+
+        if existing_position:
+            return jsonify({
+                "error": "Position already occupied in workout"
+            }), 400
+
+        workout_exercise.position = position
+
+    db.session.commit()
+
+    return jsonify({
+        "id": workout_exercise.id,
+        "exercise": {
+            "id": workout_exercise.exercise.id,
+            "name": workout_exercise.exercise.name,
+            "category": workout_exercise.exercise.category.value
+        },
+        "description": workout_exercise.description,
+        "position": workout_exercise.position
+    }), 200
