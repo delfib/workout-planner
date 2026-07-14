@@ -163,3 +163,24 @@ def update_workout_day(id):
         "workout_id": workout_day.workout_id,
         "day_of_week": workout_day.day_of_week.value
     }), 200
+
+
+@workout_day_bp.route("/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_workout_day(id):
+    user_id = get_jwt_identity()
+
+    workout_day = WorkoutDay.query.join(Workout).filter(
+        WorkoutDay.id == id,
+        Workout.user_id == int(user_id)
+    ).first()
+
+    if not workout_day:
+        return jsonify({"error": "Workout day not found"}), 404
+
+    db.session.delete(workout_day)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Workout day deleted successfully"
+    }), 200
