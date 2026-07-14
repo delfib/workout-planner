@@ -14,6 +14,8 @@ class Workout(db.Model):
 
     user = db.relationship("User", back_populates="workouts")
 
-    __table_args__ = (db.UniqueConstraint("user_id", "name", name="unique_user_workout_name"),)
-
     days = db.relationship("WorkoutDay", back_populates="workout", cascade="all, delete-orphan")
+
+    exercises = db.relationship("WorkoutExercise", back_populates="workout", cascade="all, delete-orphan")
+    
+    __table_args__ = (db.UniqueConstraint("user_id", "name", name="unique_user_workout_name"),)

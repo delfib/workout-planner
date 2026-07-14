@@ -5,7 +5,7 @@ from models import db
 from models.workout_day import WorkoutDay, WeekDay
 from models.workout import Workout
 
-workout_day_bp = Blueprint("workout-days", __name__)
+workout_day_bp = Blueprint("workout_days", __name__)
 
 DAY_ORDER = {
     WeekDay.MONDAY: 0,
