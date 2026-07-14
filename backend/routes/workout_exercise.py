@@ -72,3 +72,39 @@ def add_exercise_to_workout(workout_id):
         "description": workout_exercise.description,
         "position": workout_exercise.position
     }), 201
+
+
+@workout_exercise_bp.route("/workouts/<int:workout_id>/exercises", methods=["GET"])
+@jwt_required()
+def get_workout_exercises(workout_id):
+    user_id = get_jwt_identity()
+
+    workout = Workout.query.filter_by(
+        id=workout_id,
+        user_id=int(user_id)
+    ).first()
+
+    if not workout:
+        return jsonify({"error": "Workout not found"}), 404
+
+    workout_exercises = WorkoutExercise.query.filter_by(
+        workout_id=workout_id
+    ).order_by(
+        WorkoutExercise.position
+    ).all()
+
+    result = [
+        {
+            "id": workout_exercise.id,
+            "exercise": {
+                "id": workout_exercise.exercise.id,
+                "name": workout_exercise.exercise.name,
+                "category": workout_exercise.exercise.category.value
+            },
+            "description": workout_exercise.description,
+            "position": workout_exercise.position
+        }
+        for workout_exercise in workout_exercises
+    ]
+
+    return jsonify(result), 200
