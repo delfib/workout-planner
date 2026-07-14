@@ -7,6 +7,15 @@ from models.workout import Workout
 
 workout_day_bp = Blueprint("workout-days", __name__)
 
+DAY_ORDER = {
+    WeekDay.MONDAY: 0,
+    WeekDay.TUESDAY: 1,
+    WeekDay.WEDNESDAY: 2,
+    WeekDay.THURSDAY: 3,
+    WeekDay.FRIDAY: 4,
+    WeekDay.SATURDAY: 5,
+    WeekDay.SUNDAY: 6,
+}
 
 @workout_day_bp.route("", methods=["POST"])
 @jwt_required()
@@ -62,3 +71,29 @@ def create_workout_day():
         "workout_id": new_workout_day.workout_id,
         "day_of_week": new_workout_day.day_of_week.value
     }), 201
+
+
+@workout_day_bp.route("", methods=["GET"])
+@jwt_required()
+def get_workout_days():
+    user_id = get_jwt_identity()
+
+    workout_days = WorkoutDay.query.join(Workout).filter(
+        Workout.user_id == int(user_id)
+    ).all()
+
+    workout_days.sort(key=lambda wd: DAY_ORDER[wd.day_of_week])
+    
+    result = [
+        {
+            "id": workout_day.id,
+            "day_of_week": workout_day.day_of_week.value,
+            "workout": {
+                "id": workout_day.workout.id,
+                "name": workout_day.workout.name
+            }
+        }
+        for workout_day in workout_days
+    ]
+
+    return jsonify(result), 200
