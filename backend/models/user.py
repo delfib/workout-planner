@@ -11,8 +11,5 @@ class User(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
-    exercises = db.relationship(
-        "Exercise",
-        back_populates="user",
-        cascade="all, delete-orphan"
-    )
+    workouts = db.relationship("Workout", back_populates="user", cascade="all, delete-orphan")
+    exercises = db.relationship("Exercise", back_populates="user", cascade="all, delete-orphan")

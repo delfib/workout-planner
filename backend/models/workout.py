@@ -12,6 +12,8 @@ class Workout(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship("User", backref="workouts")
+    user = db.relationship("User", back_populates="workouts")
 
     __table_args__ = (db.UniqueConstraint("user_id", "name", name="unique_user_workout_name"),)
+
+    days = db.relationship("WorkoutDay", back_populates="workout", cascade="all, delete-orphan")
