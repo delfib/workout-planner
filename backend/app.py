@@ -1,5 +1,6 @@
 from flask import Flask
 from config import Config
+from flask_cors import CORS
 from routes.auth import auth_bp
 from routes.user import user_bp
 from routes.exercise import exercise_bp
@@ -11,6 +12,8 @@ from extensions import db, migrate, bcrypt, jwt
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+CORS(app)
 
 db.init_app(app)
 migrate.init_app(app, db)
