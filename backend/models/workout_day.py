@@ -10,6 +10,15 @@ class WeekDay(Enum):
     SATURDAY = "Saturday"
     SUNDAY = "Sunday"
 
+DAY_ORDER = {
+    WeekDay.MONDAY: 0,
+    WeekDay.TUESDAY: 1,
+    WeekDay.WEDNESDAY: 2,
+    WeekDay.THURSDAY: 3,
+    WeekDay.FRIDAY: 4,
+    WeekDay.SATURDAY: 5,
+    WeekDay.SUNDAY: 6,
+}
 class WorkoutDay(db.Model):
     __tablename__ = "workout_days"
 

@@ -4,7 +4,7 @@ from sqlalchemy import func
 
 from models import db
 from models.workout import Workout
-
+from models.workout_day import DAY_ORDER
 
 workout_bp = Blueprint("workout",__name__)
 
@@ -61,6 +61,48 @@ def get_workouts():
     ]
 
     return jsonify(result), 200
+
+
+@workout_bp.route("/<int:id>", methods=["GET"])
+@jwt_required()
+def get_workout(id):
+    user_id = get_jwt_identity()
+
+    workout = Workout.query.filter_by(
+        id=id,
+        user_id=int(user_id)
+    ).first()
+
+    if not workout:
+        return jsonify({"error": "Workout not found"}), 404
+
+    return jsonify({
+        "id": workout.id,
+        "name": workout.name,
+        "days": [
+            day.day_of_week.value
+            for day in sorted(
+                workout.days,
+                key=lambda d: DAY_ORDER[d.day_of_week]
+            )
+        ],
+        "exercises": [
+            {
+                "id": workout_exercise.id,
+                "exercise": {
+                    "id": workout_exercise.exercise.id,
+                    "name": workout_exercise.exercise.name,
+                    "category": workout_exercise.exercise.category.value
+                },
+                "description": workout_exercise.description,
+                "position": workout_exercise.position
+            }
+            for workout_exercise in sorted(
+                workout.exercises,
+                key=lambda we: we.position
+            )
+        ]
+    }), 200
 
 
 @workout_bp.route("/<int:id>", methods=["PUT"])

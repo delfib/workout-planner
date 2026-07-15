@@ -185,3 +185,33 @@ def update_workout_exercise(id):
         "description": workout_exercise.description,
         "position": workout_exercise.position
     }), 200
+
+
+@workout_exercise_bp.route("/workout-exercises/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_workout_exercise(id):
+    user_id = get_jwt_identity()
+
+    workout_exercise = db.session.get(WorkoutExercise, id)
+
+    if not workout_exercise or workout_exercise.workout.user_id != int(user_id):
+        return jsonify({"error": "Workout exercise not found"}), 404
+
+    deleted_position = workout_exercise.position
+
+    db.session.delete(workout_exercise)
+
+    remaining = WorkoutExercise.query.filter(
+        WorkoutExercise.workout_id == workout_exercise.workout_id,
+        WorkoutExercise.position > deleted_position
+    ).all()
+
+    for exercise in remaining:
+        exercise.position -= 1
+
+    db.session.commit()
+
+
+    return jsonify({
+        "message": "Workout exercise deleted successfully"
+    }), 200

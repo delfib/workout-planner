@@ -2,20 +2,10 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models import db
-from models.workout_day import WorkoutDay, WeekDay
+from models.workout_day import WorkoutDay, WeekDay, DAY_ORDER
 from models.workout import Workout
 
 workout_day_bp = Blueprint("workout_days", __name__)
-
-DAY_ORDER = {
-    WeekDay.MONDAY: 0,
-    WeekDay.TUESDAY: 1,
-    WeekDay.WEDNESDAY: 2,
-    WeekDay.THURSDAY: 3,
-    WeekDay.FRIDAY: 4,
-    WeekDay.SATURDAY: 5,
-    WeekDay.SUNDAY: 6,
-}
 
 @workout_day_bp.route("", methods=["POST"])
 @jwt_required()
