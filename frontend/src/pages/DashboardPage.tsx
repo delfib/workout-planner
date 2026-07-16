@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import WorkoutView from "../components/WorkoutView";
+import ExerciseLibraryView from "../components/ExerciseView";
 
+type DashboardTab = "workouts" | "exercises";
 
 function DashboardPage() {
 
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState<DashboardTab>("workouts");
 
     function handleLogout() {
         logout();
@@ -20,9 +25,22 @@ function DashboardPage() {
             <h2>
                 Welcome, {user?.username}!
             </h2>
-            <p>
-                This is your dashboard.
-            </p>
+            <hr />
+                <div>
+                    <button onClick={() => setActiveTab("workouts")} >
+                        Workouts
+                    </button>
+                    <button onClick={() => setActiveTab("exercises")} >
+                        Exercises
+                    </button>
+                </div>
+            <hr />
+                {activeTab === "workouts" ? (
+                    <WorkoutView />
+                ) : (
+                    <ExerciseLibraryView />
+                )}
+
             <button onClick={handleLogout}>
                 Logout
             </button>
