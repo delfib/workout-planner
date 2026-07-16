@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getExercises } from "../services/exerciseService";
 import type { Exercise } from "../types/exercise";
+import CreateExerciseForm from "./CreateExerciseForm";
 
 function ExerciseView() {
     const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -42,9 +43,9 @@ function ExerciseView() {
                     <option value="Cardio">Cardio</option>
             </select>
 
-            <button>
-                + New Exercise
-            </button>
+            <CreateExerciseForm
+                onCreated={loadExercises}
+            />
 
             {exercises.map((exercise) => (
                 <div key={exercise.id}>
