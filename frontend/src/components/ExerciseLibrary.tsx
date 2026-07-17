@@ -68,6 +68,7 @@ function ExerciseLibrary() {
                             <ExerciseCard
                                 key={exercise.id}
                                 exercise={exercise}
+                                onDeleted={loadExercises}
                             />
                         ))}
                     </div>
