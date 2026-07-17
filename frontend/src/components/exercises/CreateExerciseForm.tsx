@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { createExercise } from "../services/exerciseService";
+import { createExercise } from "../../services/exerciseService";
+import { EXERCISE_CATEGORIES } from "../../constants/exerciseCategories";
 
 interface Props {
     onCreated: () => void;
@@ -50,14 +51,14 @@ function CreateExerciseForm({ onCreated }: Props) {
                 onChange={(e) => setCategory(e.target.value)}
             >
                 <option value="">Select category</option>
-                <option value="Chest">Chest</option>
-                <option value="Back">Back</option>
-                <option value="Legs">Legs</option>
-                <option value="Shoulders">Shoulders</option>
-                <option value="Arms">Arms</option>
-                <option value="Core">Core</option>
-                <option value="Glutes">Glutes</option>
-                <option value="Cardio">Cardio</option>
+                {EXERCISE_CATEGORIES.map((category) => (
+                    <option
+                        key={category}
+                        value={category}
+                    >
+                        {category}
+                    </option>
+                ))}
             </select>
 
             {error && (

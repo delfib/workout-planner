@@ -1,0 +1,32 @@
+.exerciseLibrary {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.exerciseContent {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.exerciseListSection {
+    flex: 1;
+}
+
+.exerciseControls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.exerciseList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exerciseSidebar {
+    width: 300px;
+    flex-shrink: 0;
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import WorkoutView from "../components/WorkoutView";
-import ExerciseView from "../components/ExerciseView";
+import ExerciseLibrary from "../components/ExerciseLibrary";
 
 type DashboardTab = "workouts" | "exercises";
 
@@ -38,7 +38,7 @@ function DashboardPage() {
                 {activeTab === "workouts" ? (
                     <WorkoutView />
                 ) : (
-                    <ExerciseView />
+                    <ExerciseLibrary />
                 )}
 
             <button onClick={handleLogout}>
