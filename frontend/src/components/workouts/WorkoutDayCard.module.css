@@ -1,0 +1,22 @@
+.dayCard {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 180px;
+    min-height: 160px;
+}
+
+.placeholder {
+    margin-top: 1rem;
+    border: 2px dashed #bbb;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.workoutCard {
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    cursor: pointer;
+}
