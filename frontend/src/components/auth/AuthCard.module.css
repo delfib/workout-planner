@@ -1,0 +1,16 @@
+.wrapper {
+    width: 100%;
+    max-width: 420px;
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: .5rem;
+    color: var(--primary);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}

@@ -1,0 +1,43 @@
+:root {
+
+    /* Colors */
+    --primary: #3B82F6;
+    --primary-dark: #2563EB;
+    --hero-blue: #1558C3;
+
+    --background: #FFFFFF;
+    --surface: #F8FAFC;
+
+    --text: #111827;
+    --text-muted: #6B7280;
+
+    --border: #E5E7EB;
+
+    --error: #b91b1b;
+
+
+    /* Hero decoration */
+    --hero-pattern: rgba(255, 255, 255, 0.08);
+
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+
+    /* Shadows */
+    --shadow-sm:
+        0 1px 2px rgba(0,0,0,0.05);
+
+    --shadow-md:
+        0 10px 25px rgba(0,0,0,0.15);
+
+
+    /* Typography */
+    --font-main:
+        Inter, system-ui, sans-serif;
+
+    --font-logo:
+        "Bebas Neue", sans-serif;
+}

@@ -1,0 +1,93 @@
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LEFT SIDE - FORM */
+.formSection {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background);
+    padding: 3rem;
+}
+
+
+/* RIGHT SIDE - HERO */
+.heroSection {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--hero-blue);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,0.12) 1px,
+            transparent 1px
+        );
+    background-size: 25px 25px;
+}
+
+
+/*
+    Large decorative circle - top left
+*/
+.heroSection::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: var(--hero-pattern);
+    top: -200px;
+    left: -200px;
+}
+
+
+/*
+    Large decorative circle - bottom right
+*/
+.heroSection::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: var(--hero-pattern);
+    bottom: -120px;
+    right: -120px;
+}
+
+.heroImage {
+    width: 80%;
+    max-width: 550px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+    filter:
+        drop-shadow(
+            0 20px 30px rgba(0,0,0,0.15)
+        );
+}
+
+/*
+  Responsive
+*/
+@media (max-width: 900px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .heroSection {
+        display: none;
+    }
+
+    .formSection {
+        padding: 2rem;
+    }
+}

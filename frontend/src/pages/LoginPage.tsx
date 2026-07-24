@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 import { login as loginRequest } from "../services/authService";
 import { useAuth } from "../contexts/AuthContext";
-import { AxiosError } from "axios";
+import AuthLayout from "../layouts/AuthLayout";
+import AuthCard from "../components/auth/AuthCard";
+import styles from "../components/auth/AuthForm.module.css";
 
 type ErrorResponse = {
     error: string;
@@ -24,10 +27,9 @@ function LoginPage() {
             const data = await loginRequest({email, password});
             login(data.user, data.token);
             navigate("/");
-        
+
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
-        
             if (axiosError.response?.data?.error) {
                 setError(axiosError.response.data.error);
             } else {
@@ -37,54 +39,65 @@ function LoginPage() {
     }
 
     return (
-        <div>
-            <h1>
-                Workout Planner
-            </h1>
+        <AuthLayout>
+            <AuthCard
+                subtitle="Welcome back! The weights won't lift themselves..."
+            >
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(e.target.value)
-                        }
-                    />
-                </div>
+                <form
+                    onSubmit={handleSubmit}
+                    className={styles.form}
+                >
+                    <div className={styles.field}>
+                        <label>
+                            Email
+                        </label>
+                        <input
+                            className={styles.input}
+                            type="email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                        />
+                    </div>
 
-                <div>
-                    <label>
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                    />
-                </div>
+                    <div className={styles.field}>
+                        <label>
+                            Password
+                        </label>
+                        <input
+                            className={styles.input}
+                            type="password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                        />
+                    </div>
 
-                {error && (
-                    <p>{error}</p>
-                )}
+                    {error && (
+                        <p className={styles.error}>
+                            {error}
+                        </p>
+                    )}
 
-                <button type="submit">
-                    Login
-                </button>
+                    <button
+                        className={styles.button}
+                        type="submit"
+                    >
+                        Login
+                    </button>
 
-                <p>
+                </form>
+                <p className={styles.footer}>
                     Don't have an account?{" "}
                     <Link to="/register">
                         Create one
                     </Link>
                 </p>
-            </form>
-        </div>
+            </AuthCard>
+        </AuthLayout>
     );
 }
 
