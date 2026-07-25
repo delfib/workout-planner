@@ -1,5 +1,24 @@
 .workoutView {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
+    align-items: start;
+}
+
+@media (max-width: 1200px) {
+    .workoutView {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .workoutView {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .workoutView {
+        grid-template-columns: 1fr;
+    }
 }
