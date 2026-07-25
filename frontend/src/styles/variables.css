@@ -43,4 +43,28 @@
 
     --font-logo:
         "Bebas Neue", sans-serif;
+
+    --category-chest: #DBEAFE;
+    --category-chest-text: #2563EB;
+    
+    --category-back: #EDE9FE;
+    --category-back-text: #7C3AED;
+    
+    --category-legs: #DCFCE7;
+    --category-legs-text: #16A34A;
+    
+    --category-shoulders: #FEF3C7;
+    --category-shoulders-text: #D97706;
+    
+    --category-arms: #FCE7F3;
+    --category-arms-text: #DB2777;
+    
+    --category-core: #FFE4E6;
+    --category-core-text: #E11D48;
+    
+    --category-glutes: #F3E8FF;
+    --category-glutes-text: #9333EA;
+    
+    --category-cardio: #E5E7EB;
+    --category-cardio-text: #4B5563;
 }

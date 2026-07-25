@@ -1,31 +1,111 @@
 .exerciseCard {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem;
+    gap: 1rem;
+    padding: 1.2rem;
     background-color: var(--background);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
 
-.exerciseCard h3 {
+.exerciseCard:hover {
+    transform: translateY(-1px);
+    border-color: rgba(59,130,246,.25);
+    box-shadow: 0 5px 5px rgba(0,0,0,.10);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.header h3 {
     color: var(--text);
-    margin-bottom: 0.25rem;
-}
-
-.exerciseCard p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.exerciseCard button {
-    border: none;
-    background-color: transparent;
-    color: var(--error);
-    cursor: pointer;
+    font-size: 1.05rem;
     font-weight: 600;
+    line-height: 1.3;
 }
 
-.exerciseCard button:hover {
-    text-decoration: underline;
+.category {
+    align-self: flex-start;
+    padding: .35rem .8rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+/* Category colors */
+.chest {
+    background: var(--category-chest);
+    color: var(--category-chest-text);
+}
+
+.back {
+    background: var(--category-back);
+    color: var(--category-back-text);
+}
+
+.legs {
+    background: var(--category-legs);
+    color: var(--category-legs-text);
+}
+
+.shoulders {
+    background: var(--category-shoulders);
+    color: var(--category-shoulders-text);
+}
+
+.arms {
+    background: var(--category-arms);
+    color: var(--category-arms-text);
+}
+
+.core {
+    background: var(--category-core);
+    color: var(--category-core-text);
+}
+
+.glutes {
+    background: var(--category-glutes);
+    color: var(--category-glutes-text);
+}
+
+.cardio {
+    background: var(--category-cardio);
+    color: var(--category-cardio-text);
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.6;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.deleteButton img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.deleteButton:hover {
+    opacity: 1;
+    transform: scale(1);
 }

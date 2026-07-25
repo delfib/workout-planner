@@ -41,7 +41,6 @@
 .exerciseControls input:focus,
 .exerciseControls select:focus {
     outline: none;
-    border-color: var(--primary);
 }
 
 .exerciseList {

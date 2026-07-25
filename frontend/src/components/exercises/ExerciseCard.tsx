@@ -2,6 +2,7 @@ import axios from "axios";
 import styles from "./ExerciseCard.module.css";
 import { deleteExercise } from "../../services/exerciseService";
 import type { Exercise } from "../../types/exercise";
+import trashCanIcon from "../../assets/trash-can.svg";
 
 interface Props {
     exercise: Exercise;
@@ -9,7 +10,6 @@ interface Props {
 }
 
 function ExerciseCard({ exercise, onDeleted }: Props) {
-    
     const handleDelete = async () => {
         if (!window.confirm(`Delete "${exercise.name}"?`)) {
             return;
@@ -30,11 +30,20 @@ function ExerciseCard({ exercise, onDeleted }: Props) {
 
     return (
         <div className={styles.exerciseCard}>
-            <h3>{exercise.name}</h3>
-            <p>{exercise.category}</p>
-            <button onClick={handleDelete}>
-                Delete
-            </button>
+            <div className={styles.header}>
+                <h3>{exercise.name}</h3>
+                <button
+                    className={styles.deleteButton}
+                    onClick={handleDelete}
+                    title="Delete exercise"
+                >
+                    <img src={trashCanIcon} alt="Delete" />
+                </button>
+            </div>
+
+            <span className={`${styles.category} ${styles[exercise.category.toLowerCase()]}`} >
+                {exercise.category}
+            </span>
         </div>
     );
 }
