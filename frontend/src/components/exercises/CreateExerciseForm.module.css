@@ -1,0 +1,53 @@
+.container {
+    background-color: var(--background);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.container h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text);
+}
+
+.input,
+.select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--text-grayish);
+}
+
+.input:focus,
+.select:focus {
+    outline: none;
+}
+
+.select option {
+    color: var(--text-darker-gray);
+    background-color: white;
+    font-size: 1rem;
+}
+
+.button {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.button:hover {
+    background-color: var(--primary-dark);
+}
+
+.error {
+    color: var(--error);
+    margin-bottom: 1rem;
+}

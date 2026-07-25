@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import WorkoutView from "../components/WorkoutView";
 import ExerciseLibrary from "../components/ExerciseLibrary";
+import styles from "./DashboardPage.module.css";
 
 type DashboardTab = "workouts" | "exercises";
 
@@ -18,32 +19,56 @@ function DashboardPage() {
     }
 
     return (
-        <div>
-            <h1>
-                Workout Planner
-            </h1>
-            <h2>
-                Welcome, {user?.username}!
-            </h2>
-            <hr />
-                <div>
-                    <button onClick={() => setActiveTab("workouts")} >
-                        Workouts
-                    </button>
-                    <button onClick={() => setActiveTab("exercises")} >
-                        Exercises
-                    </button>
+        <div className={styles.dashboard}>
+            <header className={styles.header}>
+                <div className={styles.titleSection}>
+                    <h1>
+                        Workout Planner
+                    </h1>
+                    <p>
+                        Welcome back, {user?.username}!
+                    </p>
                 </div>
-            <hr />
+                <button
+                    className={styles.logoutButton}
+                    onClick={handleLogout}
+                >
+                    Log out
+
+                </button>
+            </header>
+
+            <div className={styles.tabs}>
+                <button
+                    className={
+                        activeTab === "workouts"
+                        ? `${styles.tab} ${styles.activeTab}`
+                        : styles.tab
+                    }
+                    onClick={() => setActiveTab("workouts")}
+
+                >
+                    Workouts
+                </button>
+                <button
+                    className={
+                        activeTab === "exercises"
+                        ? `${styles.tab} ${styles.activeTab}`
+                        : styles.tab
+                    }
+                    onClick={() => setActiveTab("exercises")}
+                >
+                    Exercise Library
+                </button>
+            </div>
+
+            <main className={styles.content}>
                 {activeTab === "workouts" ? (
                     <WorkoutView />
                 ) : (
                     <ExerciseLibrary />
                 )}
-
-            <button onClick={handleLogout}>
-                Logout
-            </button>
+            </main>
         </div>
     );
 }

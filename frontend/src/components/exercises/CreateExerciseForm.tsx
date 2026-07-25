@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { createExercise } from "../../services/exerciseService";
 import { EXERCISE_CATEGORIES } from "../../constants/exerciseCategories";
+import styles from "./CreateExerciseForm.module.css";
 
 interface Props {
     onCreated: () => void;
@@ -36,17 +37,17 @@ function CreateExerciseForm({ onCreated }: Props) {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h2>Create Exercise</h2>
 
-            <input
+            <input className={styles.input}
                 type="text"
                 placeholder="Exercise name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
 
-            <select
+            <select className={styles.select}
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
             >
@@ -62,10 +63,13 @@ function CreateExerciseForm({ onCreated }: Props) {
             </select>
 
             {error && (
-                <p>{error}</p>
+                <p className={styles.error}>{error}</p>
             )}
 
-            <button onClick={handleCreate}>
+            <button
+                className={styles.button}
+                onClick={handleCreate}
+            >
                 Create
             </button>
 

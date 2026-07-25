@@ -10,10 +10,13 @@
 
     --text: #111827;
     --text-muted: #6B7280;
+    --text-grayish: #626978;
+    --text-darker-gray: #515764;
 
     --border: #E5E7EB;
-
     --error: #b91b1b;
+    
+    --light-gray: #f0f4f8;
 
 
     /* Hero decoration */
