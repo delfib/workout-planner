@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import WorkoutView from "../components/WorkoutView";
-import ExerciseLibrary from "../components/ExerciseLibrary";
+import WorkoutView from "../components/workouts/WorkoutView";
+import ExerciseLibrary from "../components/exercises/ExerciseLibrary";
 import styles from "./DashboardPage.module.css";
 
 type DashboardTab = "workouts" | "exercises";

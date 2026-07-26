@@ -5,11 +5,18 @@ interface Props {
     weekDay: string;
     workoutDay?: WorkoutDay;
     onAddWorkout: (weekDay: string) => void;
+    isSelected: boolean;
 }
 
-function WorkoutDayCard({weekDay, workoutDay, onAddWorkout}: Props) {
+function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, isSelected}: Props) {
     return (
-        <div className={styles.dayCard}>
+        <div
+            className={
+                isSelected
+                    ? `${styles.dayCard} ${styles.selected}`
+                    : styles.dayCard
+            }
+        >
             <h3 className={styles.dayTitle}>
                 {weekDay}
             </h3>
@@ -19,7 +26,11 @@ function WorkoutDayCard({weekDay, workoutDay, onAddWorkout}: Props) {
                 </div>
             ) : (
                 <div
-                    className={styles.placeholder}
+                    className={
+                        isSelected
+                            ? `${styles.placeholder} ${styles.activePlaceholder}`
+                            : styles.placeholder
+                    }
                     onClick={() => onAddWorkout(weekDay)}
                 >
                     <p>+ Add Workout</p>

@@ -1,10 +1,10 @@
 import styles from "./ExerciseLibrary.module.css";
 import { useEffect, useState } from "react";
-import { getExercises } from "../services/exerciseService";
-import type { Exercise } from "../types/exercise";
-import { EXERCISE_CATEGORIES } from "../constants/exerciseCategories";
-import CreateExerciseForm from "./exercises/CreateExerciseForm";
-import ExerciseCard from "./exercises/ExerciseCard";
+import { getExercises } from "../../services/exerciseService";
+import type { Exercise } from "../../types/exercise";
+import { EXERCISE_CATEGORIES } from "../../constants/exerciseCategories";
+import CreateExerciseForm from "./CreateExerciseForm";
+import ExerciseCard from "./ExerciseCard";
 
 function ExerciseLibrary() {
     const [exercises, setExercises] = useState<Exercise[]>([]);

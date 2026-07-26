@@ -71,3 +71,15 @@
     font-weight: 700;
     text-align: center;
 }
+
+.selected {
+    border: 1px solid rgba(59, 130, 246, .18);
+    transform: translateY(-2px);
+    transition: .2s ease;
+}
+
+.activePlaceholder {
+    background: var(--light-gray);
+    border-color: var(--primary);
+    color: var(--primary);
+}
