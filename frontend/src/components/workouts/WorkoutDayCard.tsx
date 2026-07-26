@@ -1,5 +1,6 @@
 import styles from "./WorkoutDayCard.module.css";
 import type { WorkoutDay } from "../../types/workoutDay";
+import { getWorkoutColor } from "../../constants/workoutColors";
 
 interface Props {
     weekDay: string;
@@ -21,8 +22,19 @@ function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, isSelected}: Props) 
                 {weekDay}
             </h3>
             {workoutDay ? (
-                <div className={styles.workoutCard}>
-                    <p>{workoutDay.workout.name}</p>
+                <div
+                    className={styles.workoutCard}
+                    style={{
+                        backgroundColor: getWorkoutColor(workoutDay.workout.id).background
+                    }}
+                >
+                    <p
+                        style={{
+                            color: getWorkoutColor(workoutDay.workout.id).text
+                        }}
+                    >
+                        {workoutDay.workout.name}
+                    </p>
                 </div>
             ) : (
                 <div
