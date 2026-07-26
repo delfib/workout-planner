@@ -9,6 +9,8 @@ import WorkoutEditorPanel from "./WorkoutEditorPanel";
 function WorkoutView() {
     const [workoutDays, setWorkoutDays] = useState<WorkoutDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | null>(null);
+    const [selectedWorkoutDay, setSelectedWorkoutDay] = useState<WorkoutDay | null>(null);
+    const [panelMode, setPanelMode] = useState<"create" | "edit" | null>(null);
 
     async function loadWorkoutDays() {
         try {
@@ -21,6 +23,14 @@ function WorkoutView() {
 
     function handleAddWorkout(day: string) {
         setSelectedDay(day);
+        setSelectedWorkoutDay(null);
+        setPanelMode("create");
+    }
+
+    function handleSelectWorkout(workoutDay: WorkoutDay) {
+        setSelectedWorkoutDay(workoutDay);
+        setSelectedDay(null);
+        setPanelMode("edit");
     }
 
     useEffect(() => {
@@ -41,16 +51,26 @@ function WorkoutView() {
                             weekDay={weekDay}
                             workoutDay={workoutDay}
                             onAddWorkout={handleAddWorkout}
-                            isSelected={selectedDay === weekDay}
+                            onSelectWorkout={handleSelectWorkout}
+                            isSelected={
+                                selectedDay === weekDay ||
+                                selectedWorkoutDay?.id === workoutDay?.id
+                            }
                         />
                     );
                 })}
             </div>
 
-            {selectedDay && (
+            {panelMode && (
                 <WorkoutEditorPanel
                     day={selectedDay}
-                    onClose={() => setSelectedDay(null)}
+                    workoutDay={selectedWorkoutDay}
+                    mode={panelMode}
+                    onClose={() => {
+                        setSelectedDay(null);
+                        setSelectedWorkoutDay(null);
+                        setPanelMode(null);
+                    }}
                     onWorkoutCreated={loadWorkoutDays}
                 />
             )}

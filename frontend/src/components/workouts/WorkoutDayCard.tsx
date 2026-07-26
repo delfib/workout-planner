@@ -6,10 +6,11 @@ interface Props {
     weekDay: string;
     workoutDay?: WorkoutDay;
     onAddWorkout: (weekDay: string) => void;
+    onSelectWorkout: (workoutDay: WorkoutDay) => void;
     isSelected: boolean;
 }
 
-function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, isSelected}: Props) {
+function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, onSelectWorkout, isSelected}: Props) {
     return (
         <div
             className={
@@ -25,13 +26,13 @@ function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, isSelected}: Props) 
                 <div
                     className={styles.workoutCard}
                     style={{
-                        backgroundColor: getWorkoutColor(workoutDay.workout.id).background
+                        backgroundColor: getWorkoutColor(workoutDay.workout.id).background,
+                        borderColor: getWorkoutColor(workoutDay.workout.id).background,
                     }}
+                    onClick={() => onSelectWorkout(workoutDay)}
                 >
                     <p
-                        style={{
-                            color: getWorkoutColor(workoutDay.workout.id).text
-                        }}
+                        style={{color: getWorkoutColor(workoutDay.workout.id).text,}}
                     >
                         {workoutDay.workout.name}
                     </p>
