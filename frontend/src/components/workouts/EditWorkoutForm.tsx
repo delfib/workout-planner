@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./WorkoutEditorPanel.module.css";
 import type { WorkoutDay } from "../../types/workoutDay";
 import { getWorkout, updateWorkout } from "../../services/workoutService";
+import ExerciseCard from "./ExerciseCard";
 import { AxiosError } from "axios";
 
 interface Props {
@@ -90,9 +91,11 @@ function EditWorkoutForm({workoutDay, onWorkoutUpdated}: Props) {
                     </p>
                 ) : (
                     workout.exercises.map((exercise: any) => (
-                        <p key={exercise.id}>
-                            {exercise.exercise.name}
-                        </p>
+                        <ExerciseCard
+                            key={exercise.id}
+                            name={exercise.exercise.name}
+                            description={exercise.description}
+                        />
                     ))
                 )}
             </div>
