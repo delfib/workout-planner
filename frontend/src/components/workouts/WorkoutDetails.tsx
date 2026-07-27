@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./WorkoutDetails.module.css";
 import type { WorkoutDay } from "../../types/workoutDay";
-import { deleteWorkoutExercise, getWorkout, updateWorkout } from "../../services/workoutService";
+import { deleteWorkout, deleteWorkoutExercise, getWorkout, updateWorkout } from "../../services/workoutService";
 import { deleteWorkoutDay } from "../../services/workoutDayService";
 import ExerciseCard from "./ExerciseCard";
 import { AxiosError } from "axios";
@@ -76,6 +76,21 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
             onClose();
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    async function handleDeleteWorkout() {
+        const confirmed = window.confirm("Are you sure you want to delete this workout?");
+    
+        if (!confirmed) return;
+    
+        try {
+            await deleteWorkout(workout.id);
+            onClose();
+            onWorkoutUpdated();
+        } catch (error) {
+            console.error(error);
+            setError("Could not delete workout");
         }
     }
 
@@ -156,7 +171,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
                     Unassign from {workoutDay.day_of_week}
                 </button>
     
-                <button className={styles.deleteButton} >
+                <button className={styles.deleteButton} onClick={handleDeleteWorkout} >
                     Delete Workout
                 </button>    
             </div>
