@@ -44,6 +44,7 @@ function WorkoutEditorPanel({mode, day, workoutDay, onClose, onWorkoutCreated}: 
                 </>
             ) : (
                 <WorkoutDetails
+                    key={workoutDay?.workout.id}
                     workoutDay={workoutDay!}
                     onWorkoutUpdated={onWorkoutCreated}
                     onClose={onClose}

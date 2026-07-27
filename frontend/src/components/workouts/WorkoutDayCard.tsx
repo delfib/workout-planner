@@ -11,43 +11,48 @@ interface Props {
 }
 
 function WorkoutDayCard({weekDay, workoutDay, onAddWorkout, onSelectWorkout, isSelected}: Props) {
+
+    const workoutColor = workoutDay ? getWorkoutColor(workoutDay.workout.id) : null;
+
     return (
-        <div
-            className={
-                isSelected
-                    ? `${styles.dayCard} ${styles.selected}`
-                    : styles.dayCard
-            }
-        >
+        <div className={styles.dayCard}>
+
             <h3 className={styles.dayTitle}>
                 {weekDay}
             </h3>
+
             {workoutDay ? (
                 <div
-                    className={styles.workoutCard}
+                    className={
+                        isSelected
+                            ? `${styles.workoutCard} ${styles.selectedWorkout}`
+                            : styles.workoutCard
+                    }
                     style={{
-                        backgroundColor: getWorkoutColor(workoutDay.workout.id).background,
-                        borderColor: getWorkoutColor(workoutDay.workout.id).background,
+                        backgroundColor: workoutColor?.background,
+                        borderColor: isSelected
+                            ? workoutColor?.text
+                            : workoutColor?.background
                     }}
                     onClick={() => onSelectWorkout(workoutDay)}
                 >
                     <p
-                        style={{color: getWorkoutColor(workoutDay.workout.id).text,}}
+                        style={{color: workoutColor?.text}}
                     >
                         {workoutDay.workout.name}
                     </p>
                 </div>
+
             ) : (
                 <div
-                    className={
-                        isSelected
-                            ? `${styles.placeholder} ${styles.activePlaceholder}`
-                            : styles.placeholder
-                    }
+                    className={`${styles.placeholder} ${isSelected ? styles.activePlaceholder : ""}`}
                     onClick={() => onAddWorkout(weekDay)}
                 >
-                    <p>+ Add Workout</p>
+                    <p>
+                        + Add Workout
+                    </p>
                 </div>
+
             )}
         </div>
     );

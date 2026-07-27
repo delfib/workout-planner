@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed #FAFBFD;
+    border: 2px dashed var(--border);
     border-radius: var(--radius-md);
     background-color: #FAFBFD;
     cursor: pointer;
@@ -33,8 +33,7 @@
 }
 
 .placeholder:hover {
-    border-color: var(--primary);
-    background-color: #F2F7FF;
+    background-color: #FAFBFD;
     transform: translateY(-2px);
 }
 
@@ -45,6 +44,15 @@
     text-align: center;
 }
 
+.activePlaceholder {
+    border-color: var(--primary);
+    background-color: #F2F7FF;
+}
+
+.activePlaceholder p {
+    color: var(--primary);
+}
+
 .workoutCard {
     flex: 1;
     display: flex;
@@ -52,11 +60,12 @@
     align-items: center;
     padding: 1.25rem;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border);
+    border: 1px solid transparent;
     cursor: pointer;
     transition:
         transform .2s ease,
-        box-shadow .2s ease;
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
 
 .workoutCard:hover {
@@ -70,14 +79,6 @@
     text-align: center;
 }
 
-.selected {
-    border: 1px solid rgba(59, 130, 246, .18);
-    transform: translateY(-2px);
-    transition: .2s ease;
-}
-
-.activePlaceholder {
-    background: var(--light-gray);
-    border-color: var(--primary);
-    color: var(--primary);
+.selectedWorkout {
+    border-width: 2px;
 }

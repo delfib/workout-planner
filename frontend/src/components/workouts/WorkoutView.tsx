@@ -54,7 +54,8 @@ function WorkoutView() {
                             onSelectWorkout={handleSelectWorkout}
                             isSelected={
                                 selectedDay === weekDay ||
-                                selectedWorkoutDay?.id === workoutDay?.id
+                                (workoutDay !== undefined &&
+                                    selectedWorkoutDay?.id === workoutDay.id)
                             }
                         />
                     );
