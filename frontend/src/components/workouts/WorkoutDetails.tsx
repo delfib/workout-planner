@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./WorkoutDetails.module.css";
 import type { WorkoutDay } from "../../types/workoutDay";
 import { deleteWorkoutExercise, getWorkout, updateWorkout } from "../../services/workoutService";
+import { deleteWorkoutDay } from "../../services/workoutDayService";
 import ExerciseCard from "./ExerciseCard";
 import { AxiosError } from "axios";
 import { getWorkoutColor } from "../../constants/workoutColors";
@@ -42,8 +43,9 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
             for (const id of deletedExercises) {
                 await deleteWorkoutExercise(id);
             }
-            
+
             setWorkout({...workout, name: updatedWorkout.name,});
+            setDeletedExercises([]);
             setIsEditingName(false);
             onWorkoutUpdated();
         } catch (error) {
@@ -65,6 +67,16 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
             ...workout,
             exercises: workout.exercises.filter((exercise: any) => exercise.id !== id),
         });
+    }
+
+    async function handleUnassignWorkout() {
+        try {
+            await deleteWorkoutDay(workoutDay.id);
+            onWorkoutUpdated();
+            onClose();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
@@ -140,7 +152,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
             </button>
     
             <div className={styles.bottomButtons}>
-                <button className={styles.secondaryButton} >
+                <button className={styles.secondaryButton} onClick={handleUnassignWorkout} >
                     Unassign from {workoutDay.day_of_week}
                 </button>
     

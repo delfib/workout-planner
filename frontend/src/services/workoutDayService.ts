@@ -6,14 +6,12 @@ export async function getWorkoutDays(): Promise<WorkoutDay[]> {
     return response.data;
 }
 
-export async function createWorkoutDay(
-    workout_id: number,
-    day_of_week: string
-) {
-    const response = await api.post("/workout-days", {
-        workout_id,
-        day_of_week,
-    });
+export async function createWorkoutDay(workout_id: number, day_of_week: string) {
+    const response = await api.post("/workout-days", {workout_id, day_of_week,});
+    return response.data;
+}
 
+export async function deleteWorkoutDay(id: number) {
+    const response = await api.delete(`/workout-days/${id}`);
     return response.data;
 }
