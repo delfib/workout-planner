@@ -11,7 +11,7 @@ interface Props {
 }
 
 
-function CreateWorkoutForm({day, onClose, onWorkoutCreated, }: Props) {
+function CreateWorkoutForm({day, onClose, onWorkoutCreated}: Props) {
 
     const [name, setName] = useState("");
     const [workouts, setWorkouts] = useState<Workout[]>([]);

@@ -1,0 +1,149 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.content p {
+    color: var(--text-grayish)
+}
+.workoutHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.workoutHeader h2 {
+    margin: 0;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.workoutBanner {
+    width: 100%;
+    position: relative;
+}
+
+.buttons {
+    display: flex;
+    gap: .5rem;
+}
+
+.iconButton {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+.iconImage {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.exerciseList {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    align-items: center;
+}
+
+.addExerciseButton {
+    width: 35%;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 2px dashed rgba(0,0,0,.15);
+    background: rgba(255,255,255,.5);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bottomButtons {
+    width: 31%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.bottomButtons button {
+    flex: 1;
+    padding: .8rem 1rem;
+    border-radius: var(--radius-md);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.secondaryButton {
+    background: white;
+    color: var(--text-darker-gray);
+}
+
+.secondaryButton:hover {
+    background: white;
+    color: var(--black);
+}
+
+.deleteButton {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.deleteButton:hover {
+    background: #fcdada;
+    color: #b91c1c;
+}
+
+.closeButton {
+    position: absolute;
+    top: 0rem;
+    right: 0.5rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+.saveButton {
+    width: 10%;
+    padding: .9rem;
+    border-radius: var(--radius-md);
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.saveButton:hover {
+    background-color: var(--primary-dark);
+    color: white;
+}

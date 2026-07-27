@@ -6,6 +6,12 @@
     box-shadow: var(--shadow-sm);
 }
 
+.panelEdit {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
 .header {
     display: flex;
     justify-content: space-between;

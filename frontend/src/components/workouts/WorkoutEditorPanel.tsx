@@ -1,7 +1,7 @@
 import styles from "./WorkoutEditorPanel.module.css";
-import type { WorkoutDay } from "../../types/workoutDay.ts";
+import type { WorkoutDay } from "../../types/workoutDay";
 import CreateWorkoutForm from "./CreateWorkoutForm";
-import EditWorkoutForm from "./EditWorkoutForm";
+import WorkoutDetails from "./WorkoutDetails";
 
 interface Props {
     mode: "create" | "edit";
@@ -11,45 +11,42 @@ interface Props {
     onWorkoutCreated: () => void;
 }
 
-function WorkoutEditorPanel({mode, day, workoutDay, onClose, onWorkoutCreated, }: Props) {
+function WorkoutEditorPanel({mode, day, workoutDay, onClose, onWorkoutCreated}: Props) {
 
     return (
-        <section className={styles.panel}>
-            <div className={styles.header}>
-                <div>
-                    <h2>
-                        {mode === "create"
-                            ? `Create Workout for ${day}`
-                            : `Edit ${workoutDay?.workout.name}`
-                        }
-                    </h2>
-
-                    <p>
-                        {mode === "create"
-                            ? "Create a new workout or assign an existing one."
-                            : "Edit your workout and manage its exercises."
-                        }
-                    </p>
-                </div>
-
-                <button
-                    className={styles.closeButton}
-                    onClick={onClose}
-                >
-                    ✕
-                </button>
-            </div>
-
+        <section className={mode === "edit" ? styles.panelEdit : styles.panel} >
             {mode === "create" ? (
-                <CreateWorkoutForm
-                    day={day!}
-                    onClose={onClose}
-                    onWorkoutCreated={onWorkoutCreated}
-                />
+                <>
+                    <div className={styles.header}>
+                        <div>
+                            <h2>
+                                Create Workout for {day}
+                            </h2>
+
+                            <p>
+                                Create a new workout or assign an existing one.
+                            </p>
+                        </div>
+
+                        <button
+                            className={styles.closeButton}
+                            onClick={onClose}
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    <CreateWorkoutForm
+                        day={day!}
+                        onClose={onClose}
+                        onWorkoutCreated={onWorkoutCreated}
+                    />
+                </>
             ) : (
-                <EditWorkoutForm
+                <WorkoutDetails
                     workoutDay={workoutDay!}
                     onWorkoutUpdated={onWorkoutCreated}
+                    onClose={onClose}
                 />
             )}
         </section>
