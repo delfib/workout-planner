@@ -18,6 +18,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
     const [workout, setWorkout] = useState<any>(null);
     const [name, setName] = useState("");
     const [error, setError] = useState("");
+    const [isEditingName, setIsEditingName] = useState(false);
 
     async function loadWorkout() {
         try {
@@ -38,6 +39,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
         try {
             const updatedWorkout = await updateWorkout(workout.id, name,);
             setWorkout({...workout, name: updatedWorkout.name,});
+            setIsEditingName(false);
             onWorkoutUpdated();
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -76,13 +78,22 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
                 </button>
 
                 <div className={styles.workoutHeader}>
-                    <h2 style={{color: workoutColor.text, }} >
-                        {workout.name}
-
-                        <button className={styles.iconButton}>
-                            <img src={editIcon} alt="Edit" className={styles.iconImage} />
-                        </button>
-                    </h2>
+                    {isEditingName ? (
+                        <input
+                            className={styles.titleInput}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            style={{color: workoutColor.text}}
+                            autoFocus
+                        />
+                    ) : (
+                        <h2 style={{color: workoutColor.text,}} >
+                            {workout.name}
+                        </h2>
+                    )}
+                    <button className={styles.iconButton} onClick={() => setIsEditingName(true)} >
+                        <img src={editIcon} alt="Edit" className={styles.iconImage} />
+                    </button>
                 </div>
             </div>
     

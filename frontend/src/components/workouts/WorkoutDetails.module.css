@@ -41,6 +41,16 @@
     position: relative;
 }
 
+.titleInput {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid currentColor;
+    font-size: 2rem;
+    font-weight: 700;
+    outline: none;
+    width: 250px;
+}
+
 .buttons {
     display: flex;
     gap: .5rem;
