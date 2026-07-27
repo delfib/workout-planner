@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./WorkoutDetails.module.css";
 import type { WorkoutDay } from "../../types/workoutDay";
-import { getWorkout, updateWorkout } from "../../services/workoutService";
+import { deleteWorkoutExercise, getWorkout, updateWorkout } from "../../services/workoutService";
 import ExerciseCard from "./ExerciseCard";
 import { AxiosError } from "axios";
 import { getWorkoutColor } from "../../constants/workoutColors";
@@ -19,6 +19,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
     const [name, setName] = useState("");
     const [error, setError] = useState("");
     const [isEditingName, setIsEditingName] = useState(false);
+    const [deletedExercises, setDeletedExercises] = useState<number[]>([]);
 
     async function loadWorkout() {
         try {
@@ -38,6 +39,10 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
     
         try {
             const updatedWorkout = await updateWorkout(workout.id, name,);
+            for (const id of deletedExercises) {
+                await deleteWorkoutExercise(id);
+            }
+            
             setWorkout({...workout, name: updatedWorkout.name,});
             setIsEditingName(false);
             onWorkoutUpdated();
@@ -48,6 +53,18 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
                 setError("Something went wrong");
             }
         }
+    }
+
+    function handleDeleteExercise(id: number) {
+        setDeletedExercises([
+            ...deletedExercises,
+            id
+        ]);
+    
+        setWorkout({
+            ...workout,
+            exercises: workout.exercises.filter((exercise: any) => exercise.id !== id),
+        });
     }
 
     useEffect(() => {
@@ -103,6 +120,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
                         key={exercise.id}
                         name={exercise.exercise.name}
                         description={exercise.description}
+                        onDelete={() => handleDeleteExercise(exercise.id)}
                     />
                 ))}
             </div>

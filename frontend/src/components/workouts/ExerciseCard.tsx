@@ -4,17 +4,16 @@ import trashIcon from "../../assets/trash-can.svg";
 interface Props {
     name: string;
     description: string;
+    onDelete: () => void;
 }
 
-function ExerciseCard({name, description}: Props) {
+function ExerciseCard({name, description, onDelete}: Props) {
 
     return (
         <div className={styles.card}>
 
             <div className={styles.name}>
-                <h4>
-                    {name}
-                </h4>
+                <h4> {name} </h4>
             </div>
 
             {description && (
@@ -23,7 +22,7 @@ function ExerciseCard({name, description}: Props) {
                 </p>
             )}
 
-            <button className={styles.deleteButton}>
+            <button className={styles.deleteButton} onClick={onDelete} >
                 <img src={trashIcon} alt="Delete exercise" />
             </button>
         </div>

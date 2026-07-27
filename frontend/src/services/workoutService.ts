@@ -24,3 +24,8 @@ export async function updateWorkout(id: number, name: string,): Promise<Workout>
     const response = await api.put<Workout>(`/workouts/${id}`, { name });
     return response.data;
 }
+
+export async function deleteWorkoutExercise(id: number) {
+    const response = await api.delete(`/workout-exercises/${id}`);
+    return response.data;
+}
