@@ -20,13 +20,19 @@ export async function getWorkout(id: number) {
     return response.data;
 }
 
-export async function updateWorkout(id: number, name: string,): Promise<Workout> {
-    const response = await api.put<Workout>(`/workouts/${id}`, { name });
+export async function updateWorkout(id: number, name: string): Promise<Workout> {
+    const response = await api.put<Workout>(`/workouts/${id}`, {name});
     return response.data;
 }
 
 export async function deleteWorkoutExercise(id: number) {
     const response = await api.delete(`/workout-exercises/${id}`);
+    return response.data;
+}
+
+export async function addExerciseToWorkout(workoutId: number, exerciseId: number, description: string) {
+    const response = await api.post(`/workouts/${workoutId}/exercises`, {exercise_id: exerciseId, description});
+
     return response.data;
 }
 

@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed #C7D2E0;
+    border: 2px dashed #FAFBFD;
     border-radius: var(--radius-md);
     background-color: #FAFBFD;
     cursor: pointer;

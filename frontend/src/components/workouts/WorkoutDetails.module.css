@@ -23,10 +23,12 @@
 .content p {
     color: var(--text-grayish)
 }
+
 .workoutHeader {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: .5rem;
 }
 
 .workoutHeader h2 {
@@ -49,6 +51,13 @@
     font-weight: 700;
     outline: none;
     width: 250px;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .buttons {
@@ -143,17 +152,25 @@
 }
 
 .saveButton {
-    width: 10%;
-    padding: .9rem;
+    padding: .55rem 1.2rem;
     border-radius: var(--radius-md);
     border: none;
     background: var(--primary);
     color: white;
     font-weight: 600;
     cursor: pointer;
+    transition: background .2s ease;
 }
 
 .saveButton:hover {
     background-color: var(--primary-dark);
     color: white;
+}
+
+.error {
+    margin: 0;
+    color: var(--error);
+    padding: .5rem 1rem;
+    font-size: .9rem;
+    font-weight: 500;
 }

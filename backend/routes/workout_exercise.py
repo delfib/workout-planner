@@ -20,7 +20,7 @@ def add_exercise_to_workout(workout_id):
     description = data.get("description", "").strip()
     position = data.get("position")
 
-    if not exercise_id or not description or position is None:
+    if not exercise_id or not description:
         return jsonify({"error": "Missing fields"}), 400
 
     workout = Workout.query.filter_by(
@@ -47,13 +47,11 @@ def add_exercise_to_workout(workout_id):
     if existing_exercise:
         return jsonify({"error": "Exercise already added to workout"}), 400
     
-    existing_position = WorkoutExercise.query.filter_by(
-        workout_id=workout_id,
-        position=position
-    ).first()
+    last_position = WorkoutExercise.query.filter_by(
+        workout_id=workout_id
+    ).count()
 
-    if existing_position:
-        return jsonify({"error": "Position already occupied in workout"}), 400
+    position = last_position + 1
 
     workout_exercise = WorkoutExercise(
         workout_id=workout_id,
