@@ -41,7 +41,7 @@ function LoginPage() {
     return (
         <AuthLayout>
             <AuthCard
-                subtitle="Welcome back! The weights won't lift themselves..."
+                subtitle="Welcome back!"
             >
 
                 <form

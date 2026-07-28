@@ -58,7 +58,7 @@ function DashboardPage() {
                     }
                     onClick={() => setActiveTab("exercises")}
                 >
-                    Exercise Library
+                    Exercises
                 </button>
             </div>
 
