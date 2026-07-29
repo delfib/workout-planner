@@ -54,8 +54,14 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
 #### Configure environment variables:
-Create a `.env` file with the required database and authentication settings.
+Create a `.env` file inside the `backend` directory containing the required database and authentication settings:
+
+```
+DATABASE_URL=your_neon_database_url
+JWT_SECRET_KEY=your_secret_key
+```
 
 #### Run the Backend server:
 ```bash
@@ -74,6 +80,13 @@ cd frontend
 #### Install the required dependencies:
 ```bash
 npm install
+```
+
+#### Configure environment variables:
+Create a `.env` file inside the `frontend` directory:
+
+```
+VITE_API_URL=http://localhost:5000/api
 ```
 
 #### Start the development server:
