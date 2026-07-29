@@ -93,3 +93,14 @@ VITE_API_URL=http://localhost:5000/api
 ```bash
 npm run dev
 ```
+
+## Deployment
+
+The application is deployed using:
+
+- Frontend: Vercel
+- Backend: Render
+- Database: Neon PostgreSQL
+
+Live Demo: 
+https://workout-planner-lilac.vercel.app
