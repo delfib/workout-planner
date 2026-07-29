@@ -39,12 +39,29 @@ function WorkoutView() {
 
     return (
         <div className={styles.workoutView}>
+    
+            {panelMode && (
+                <div className={styles.panel}>
+                    <WorkoutEditorPanel
+                        day={selectedDay}
+                        workoutDay={selectedWorkoutDay}
+                        mode={panelMode}
+                        onClose={() => {
+                            setSelectedDay(null);
+                            setSelectedWorkoutDay(null);
+                            setPanelMode(null);
+                        }}
+                        onWorkoutCreated={loadWorkoutDays}
+                    />
+                </div>
+            )}
+    
             <div className={styles.calendar}>
                 {WEEK_DAYS.map((weekDay) => {
                     const workoutDay = workoutDays.find(
                         (day) => day.day_of_week === weekDay
                     );
-
+    
                     return (
                         <WorkoutDayCard
                             key={weekDay}
@@ -61,20 +78,7 @@ function WorkoutView() {
                     );
                 })}
             </div>
-
-            {panelMode && (
-                <WorkoutEditorPanel
-                    day={selectedDay}
-                    workoutDay={selectedWorkoutDay}
-                    mode={panelMode}
-                    onClose={() => {
-                        setSelectedDay(null);
-                        setSelectedWorkoutDay(null);
-                        setPanelMode(null);
-                    }}
-                    onWorkoutCreated={loadWorkoutDays}
-                />
-            )}
+    
         </div>
     );
 }

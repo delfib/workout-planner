@@ -50,7 +50,7 @@
     font-size: 2rem;
     font-weight: 700;
     outline: none;
-    width: 250px;
+    width: min(250px, 100%);
 }
 
 .titleRow {
@@ -58,6 +58,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .buttons {
@@ -80,7 +81,8 @@
 }
 
 .exerciseList {
-    width: 50%;
+    width: 100%;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     gap: .75rem;
@@ -88,7 +90,8 @@
 }
 
 .addExerciseButton {
-    width: 35%;
+    width: 100%;
+    max-width: 500px;
     padding: 1rem;
     border-radius: var(--radius-md);
     border: 2px dashed rgba(0,0,0,.15);
@@ -105,7 +108,8 @@
 }
 
 .bottomButtons {
-    width: 31%;
+    width: 100%;
+    max-width: 500px;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
@@ -142,8 +146,8 @@
 
 .closeButton {
     position: absolute;
-    top: 0rem;
-    right: 0.5rem;
+    top: .5rem;
+    right: .5rem;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -173,4 +177,27 @@
     padding: .5rem 1rem;
     font-size: .9rem;
     font-weight: 500;
+}
+
+@media (max-width: 700px) {
+
+    .bottomButtons {
+        flex-direction: column;
+    }
+
+    .bottomButtons button {
+        width: 100%;
+    }
+
+    .workoutHeader h2 {
+        font-size: 1.6rem;
+    }
+    
+    .titleInput {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        padding: 1.25rem;
+    }
 }

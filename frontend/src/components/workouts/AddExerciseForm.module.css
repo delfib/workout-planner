@@ -1,5 +1,6 @@
 .wrapper {
-    width: 35%;
+    width: 100%;
+    max-width: 500px;
 }
 
 .container {
@@ -67,8 +68,11 @@
     }
 
     .container select,
-    .container input,
-    .container button {
+    .container input {
         width: 100%;
+    }
+
+    .container button {
+        align-self: center;
     }
 }

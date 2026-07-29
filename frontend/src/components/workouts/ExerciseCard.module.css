@@ -1,38 +1,45 @@
 .card {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
     background: var(--background);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: 1rem;
-
-    box-shadow: var(--shadow-sm);
-
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    width: 70%;
+    box-shadow: var(--shadow-sm);
 }
 
 .name {
-    flex-shrink: 0;
+    min-width: 0;
 }
 
 .name h4 {
     margin: 0;
     color: var(--text);
     font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .description {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: .95rem;
+    flex: 1;
+    min-width: 180px;
+    overflow-wrap: anywhere;
     line-height: 1.4;
 }
 
 .deleteButton {
     margin-left: auto;
-
     border: none;
     background: transparent;
     cursor: pointer;

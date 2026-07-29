@@ -9,22 +9,37 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
     align-items: start;
+    order: 1;
 }
 
-@media (max-width: 1200px) {
+.panel {
+    order: 2;
+}
+
+@media (max-width: 1700px) {
     .calendar {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1250px) {
     .calendar {
         grid-template-columns: repeat(2, 1fr);
+        order: 2;
+    }
+
+    .panel {
+        order: 1;
     }
 }
 
 @media (max-width: 600px) {
     .calendar {
         grid-template-columns: 1fr;
+        order: 2;
+    }
+
+    .panel {
+        order: 1;
     }
 }
