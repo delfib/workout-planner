@@ -116,13 +116,7 @@ function WorkoutDetails({workoutDay, onWorkoutUpdated, onClose}: Props) {
 
 
     if (!workout) {
-        return (
-            <div className={styles.content}>
-                <p>
-                    Loading workout...
-                </p>
-            </div>
-        );
+        return null;
     }
 
     const workoutColor = getWorkoutColor(workout.id);
