@@ -29,6 +29,7 @@
 - [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/)
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/)
 - [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/)
+- [Pytest](https://docs.pytest.org/)
 
 
 ### Database
@@ -38,24 +39,25 @@
 ---
 ## Backend Setup
 
-#### Navigate to the backend directory:
+1. Navigate to the backend directory:
 
 ```bash
 cd backend
 ```
 
-#### Create and activate a virtual environment:
+2. Create and activate a virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
-#### Install the required dependencies:
+3. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
-#### Configure environment variables:
+4. Configure environment variables:
 Create a `.env` file inside the `backend` directory containing the required database and authentication settings:
 
 ```
@@ -63,7 +65,7 @@ DATABASE_URL=your_neon_database_url
 JWT_SECRET_KEY=your_secret_key
 ```
 
-#### Run the Backend server:
+5. Run the Backend server:
 ```bash
 flask run
 ```
@@ -72,24 +74,24 @@ flask run
 
 ## Frontend Setup
 
-#### Navigate to the frontend directory:
+1. Navigate to the frontend directory:
 ```bash
 cd frontend
 ```
 
-#### Install the required dependencies:
+2. Install the required dependencies:
 ```bash
 npm install
 ```
 
-#### Configure environment variables:
+3. Configure environment variables:
 Create a `.env` file inside the `frontend` directory:
 
 ```
 VITE_API_URL=http://localhost:5000/api
 ```
 
-#### Start the development server:
+4. Start the development server:
 ```bash
 npm run dev
 ```
