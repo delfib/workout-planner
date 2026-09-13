@@ -9,6 +9,7 @@ frontend/node_modules/
 # Environment Variables
 .env
 backend/.env
+backend/.env.test
 
 # OS
 .DS_Store
