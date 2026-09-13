@@ -10,27 +10,33 @@ from routes.workout_exercise import workout_exercise_bp
 
 from extensions import db, migrate, bcrypt, jwt
 
-app = Flask(__name__)
-app.config.from_object(Config)
 
-CORS(app)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-db.init_app(app)
-migrate.init_app(app, db)
-bcrypt.init_app(app)
-jwt.init_app(app)
+    CORS(app)
 
-app.register_blueprint(auth_bp, url_prefix="/api/auth")
-app.register_blueprint(user_bp, url_prefix="/api/user")
-app.register_blueprint(exercise_bp, url_prefix="/api/exercises")
-app.register_blueprint(workout_bp, url_prefix="/api/workouts")
-app.register_blueprint(workout_day_bp, url_prefix="/api/workout-days")
-app.register_blueprint(workout_exercise_bp, url_prefix="/api")
+    db.init_app(app)
+    migrate.init_app(app, db)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
+
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(user_bp, url_prefix="/api/user")
+    app.register_blueprint(exercise_bp, url_prefix="/api/exercises")
+    app.register_blueprint(workout_bp, url_prefix="/api/workouts")
+    app.register_blueprint(workout_day_bp, url_prefix="/api/workout-days")
+    app.register_blueprint(workout_exercise_bp, url_prefix="/api")
+
+    @app.route("/api/health")
+    def health():
+        return {"message": "API is running"}
+
+    return app
 
 
-@app.route("/api/health")
-def health():
-    return {"message": "API is running"}
+app = create_app()
 
 
 if __name__ == "__main__":

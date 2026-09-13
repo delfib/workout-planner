@@ -124,7 +124,16 @@ def update_exercise(id):
         return jsonify({"error": "No fields to update"}), 400
 
     if name:
-        exercise.name = name.strip()
+        existing_exercise = Exercise.query.filter(
+            Exercise.user_id == int(user_id),
+            Exercise.id != exercise.id,
+            func.lower(Exercise.name) == name.lower()
+        ).first()
+
+        if existing_exercise:
+            return jsonify({"error": "Exercise already exists"}), 400
+
+        exercise.name = name
 
     if category:
         category = category.strip()
