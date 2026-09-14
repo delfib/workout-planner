@@ -1,7 +1,10 @@
+import pytest
+
+
 def test_register_user(client):
     response = client.post("/api/auth/register", json={
         "username": "testuser",
-        "email": "test@example.com",
+        "email": "test@example.com",c
         "password": "password123"
     })
 
@@ -17,6 +20,22 @@ def test_register_missing_fields(client):
 
     assert response.status_code == 400
     assert response.json == {"error": "Missing fields"}
+
+@pytest.mark.parametrize("email", [
+    "invalid-email",
+    "missing@domain",
+    "@example.com",
+    "missing-domain@",
+])
+def test_register_invalid_email(client, email):
+    response = client.post("/api/auth/register", json={
+        "username": "testuser",
+        "email": email,
+        "password": "password123"
+    })
+
+    assert response.status_code == 400
+    assert response.json == {"error": "Invalid email format"}
 
 
 def test_register_duplicate_email(client, registered_user):

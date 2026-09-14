@@ -1,4 +1,4 @@
-# Workout Planner 💪
+# Workout Planner 
 
 **Workout Planner** is a full-stack web application that allows users to create, organize, and manage their personalized workout routines. Users can build weekly workout schedules, create reusable exercises, and keep track of their workouts through a simple and intuitive interface.
 

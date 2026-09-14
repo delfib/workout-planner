@@ -3,6 +3,7 @@ from models import db
 from models.user import User
 from flask_jwt_extended import create_access_token
 from extensions import bcrypt
+from email_validator import validate_email, EmailNotValidError
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -17,6 +18,11 @@ def register():
 
     if not username or not email or not password:
         return jsonify({"error": "Missing fields"}), 400
+    
+    try:
+        validate_email(email, check_deliverability=False)
+    except EmailNotValidError:
+        return jsonify({"error": "Invalid email format"}), 400  
 
     # Check duplicates
     if User.query.filter_by(email=email).first():
