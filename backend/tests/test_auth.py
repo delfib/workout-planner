@@ -4,7 +4,7 @@ import pytest
 def test_register_user(client):
     response = client.post("/api/auth/register", json={
         "username": "testuser",
-        "email": "test@example.com",c
+        "email": "test@example.com",
         "password": "password123"
     })
 
